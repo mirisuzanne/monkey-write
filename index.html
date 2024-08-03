@@ -3,12 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Demo of component-name Web Component" />
-    <title>component-name Web Component</title>
+    <meta name="description" content="Demo of monkey-write Web Component" />
+    <title>monkey-write Web Component</title>
 
-    <script type="module" src="component-name.js"></script>
+    <script type="module" src="monkey-write.js"></script>
 
     <style>
+      monkey-write {
+        display: grid;
+
+        &::part(editor) {
+          field-sizing: content;
+          font: inherit;
+          inline-size: 100%;
+          min-block-size: 6lh;
+          padding: clamp(8px, 0.5lh, 24px);
+          resize: none;
+        }
+      }
+
       @layer reset, base;
 
       @layer base {
@@ -37,14 +50,15 @@
           max-inline-size: 36em;
         }
 
-        [demo-style] {
-          border-block: thin dashed;
-          display: block;
-          font-family: monospace;
-          margin-block: 0.5lh;
-          overflow: auto;
-          padding-block: 0.5lh;
-          white-space: pre;
+        hr {
+          margin-block: calc(var(--gap) * 2);
+        }
+
+        pre {
+          border: thin solid gray;
+          max-inline-size: 100%;
+          overflow-x: auto;
+          padding: var(--gap);
         }
       }
 
@@ -83,25 +97,169 @@
     </style>
   </head>
   <body>
-    <h1>&lt;component-name> Web Component</h1>
+    <h1>&lt;monkey-write> Web Component</h1>
 
     <ul>
       <li>
-        <a href="https://github.com/mirisuzanne/component-name">Source on github</a>.
+        <a href="https://github.com/mirisuzanne/monkey-write">Source on github</a>.
       </li>
       <li>
-        <a href="https://www.npmjs.com/package/@terriblemia/component-name">Package on NPM</a>
+        <a href="https://www.npmjs.com/package/@terriblemia/monkey-write">Package on NPM</a>
       </li>
     </ul>
 
     <hr>
 
-    <h2>General usage example</h2>
+    <h2>Default usage example</h2>
+
+    <p>
+      The default setting only allows us to write the text provided,
+      ignoring all other keystrokes.
+    </p>
+
+    <monkey-write>
+      <template>A monkey hitting keys at random for an infinite amount of time will eventually want some help writing Hamlet (or whatever). You're the monkey. We're here to help.</template>
+    </monkey-write>
+
+    <p>
+      The text is inserted
+      with a <code>&lt;template></code>
+      in the default slot.
+      White-space formatting is maintained inside the template.
+    </p>
+
+    <pre><code>&lt;monkey-write>
+  &lt;template>A monkey hitting keys at random for an infinite amount of time will eventually want some help writing Hamlet (or whatever). You're the monkey. We're here to help.&lt;/template>
+&lt;/monkey-write></code></pre>
+
+    <p>
+      We can provide an accessible label
+      for the <code>&lt;textarea></code>,
+      with <code>slot="label"</code> content:
+    </p>
+
+    <monkey-write>
+      <span slot="label">Only write what we let you</span>
+      <template>A monkey hitting keys at random for an infinite amount of time will eventually want some help writing Hamlet (or whatever). You're the monkey. We're here to help.</template>
+    </monkey-write>
+
+    <pre><code>&lt;monkey-write>
+  &lt;span slot="label">Only write what we let you&lt;/span>
+  &lt;template>A monkey hitting keys at random for an infinite amount of time will eventually want some help writing Hamlet (or whatever). You're the monkey. We're here to help.&lt;/template>
+&lt;/monkey-write></code></pre>
+
+    <p>
+      Or we can use the <code>data-label</code> attribute
+      to provide a hidden <code>aria-label</code>
+      for the <code>&lt;textarea></code> instead:
+    </p>
+
+    <monkey-write data-label="only write what we let you">
+      <template>A monkey hitting keys at random for an infinite amount of time will eventually want some help writing Hamlet (or whatever). You're the monkey. We're here to help.</template>
+    </monkey-write>
+
+    <pre><code>&lt;monkey-write data-label="only write what we let you">
+  &lt;template>A monkey hitting keys at random for an infinite amount of time will eventually want some help writing Hamlet (or whatever). You're the monkey. We're here to help.&lt;/template>
+&lt;/monkey-write></code></pre>
+
+    <h2>Typing help and hints</h2>
+
+    <p>
+      To make things a bit easier, by default:
+    </p>
+
+    <ul>
+      <li>Capitalization is ignored</li>
+      <li>The space bar can be used for any whitespace or punctuation</li>
+      <li>A hint is provided after 15 failed keystrokes</li>
+    </ul>
+
+    <p>
+      The following attributes
+      allow us to change
+      how much help is provided,
+      and when/if the hint should appear.
+    </p>
+
+    <h3>The <code>data-hint</code> attribute</h3>
+
+    <p>
+      Set <code>data-hint="&lt;number>"</code>
+      to change when hints appear,
+      based on the number of missed keystrokes.
+      This example uses <code>data-hint="5"</code>
+      for more immediate hints:
+    </p>
+
+    <monkey-write data-hint="5">
+      <template>A monkey hitting keys at random for an infinite amount of time will eventually want some help writing Hamlet (or whatever). You're the monkey. We're here to help.</template>
+    </monkey-write>
+
+    <p>
+      Or set <code>data-hint="false"</code>
+      to turn off hints entirely:
+    </p>
+
+    <monkey-write data-hint="false">
+      <template>A monkey hitting keys at random for an infinite amount of time will eventually want some help writing Hamlet (or whatever). You're the monkey. We're here to help.</template>
+    </monkey-write>
+
+    <h3>The <code>data-cheat</code> attribute</h3>
+
+    <p>
+      As described above,
+      the default cheat mode provides some help,
+      while still making us type the entire text:
+    </p>
+
+    <ul>
+      <li>Capitalization is ignored</li>
+      <li>The space bar can be used for any whitespace or punctuation</li>
+    </ul>
+
+    <p>
+      We can adjust these settings with the
+      <code>data-cheat</code> attribute.
+      Set <code>data-cheat="true"</code>
+      so that evert keystroke will input
+      the next required character:
+    </p>
+
+    <monkey-write data-cheat="true">
+      <template>A monkey hitting keys at random for an infinite amount of time will eventually want some help writing Hamlet (or whatever). You're the monkey. We're here to help.</template>
+    </monkey-write>
+
+    <p>
+      Or go even farther
+      with <code>data-cheat="hyper"</code>
+      to enter a random number of correct characters
+      (between <samp>4</samp> and <samp>24</samp>)
+      on each keystroke:
+    </p>
+
+    <monkey-write data-cheat="hyper">
+      <template>A monkey hitting keys at random for an infinite amount of time will eventually want some help writing Hamlet (or whatever). You're the monkey. We're here to help.</template>
+    </monkey-write>
+
+    <p>
+      We can also set <code>data-cheat="false"</code>
+      to turn off any key-correction,
+      and require typing the exact text provided:
+    </p>
+
+    <monkey-write data-cheat="false">
+      <template>A monkey hitting keys at random for an infinite amount of time will eventually want some help writing Hamlet (or whatever). You're the monkey. We're here to help.</template>
+    </monkey-write>
 
     <hr>
 
-    <h2>Fallbacks & Extras</h2>
-
-
+    <footer>
+      <p>
+        See the
+        <a href="https://github.com/mirisuzanne/monkey-write/blob/main/README.md">readme</a>
+        for further documentation
+        of available events, methods, properties, and styling.
+      </p>
+    </footer>
   </body>
 </html>
