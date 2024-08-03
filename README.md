@@ -1,9 +1,19 @@
 # `monkey-write`
 
-A Web Component for…
+A Web Component for
+helping infinite monkeys
+write Hamlet (or whatever).
 
 ## Features
 
+This is a text editor
+that only allows users to write
+a pre-defined text.
+Depending on the settings,
+that might be easy
+(incorrect keystrokes are replaced with valid characters)
+or extremely difficult,
+or anywhere between.
 
 **[Demo](https://mirisuzanne.github.io/monkey-write/index.html)**
 

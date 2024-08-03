@@ -1,7 +1,7 @@
 {
   "name": "@terriblemia/monkey-write",
   "version": "0.1.0",
-  "description": "A Web Component for…",
+  "description": "A Web Component for helping infinite monkeys write Hamlet (or whatever).",
   "main": "monkey-write.js",
   "scripts": {
     "dev": "npx http-server ."
@@ -15,7 +15,9 @@
     "component",
     "components",
     "web components",
-    "custom elements"
+    "custom elements",
+    "text editor",
+    "infinite monkeys"
   ],
   "license": "MIT",
   "publishConfig": {
