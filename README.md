@@ -4,6 +4,9 @@ A Web Component for
 helping infinite monkeys
 write Hamlet (or whatever).
 
+As used on [Monkey.Writr.Art](https://monkey.writr.art),
+the text editor for monkeys on a deadline!
+
 ## Features
 
 This is a text editor
