@@ -105,7 +105,7 @@ Make sure you include the `<script>` in your project
 <!-- 3rd party CDN, not recommended for production use -->
 <script
   type="module"
-  src="https://www.unpkg.com/@terriblemia/monkey-write@1.0.0/monkey-write.js"
+  src="https://www.unpkg.com/@terriblemia/monkey-write@0.1.1/monkey-write.js"
 ></script>
 ```
 
@@ -113,7 +113,7 @@ Make sure you include the `<script>` in your project
 <!-- 3rd party CDN, not recommended for production use -->
 <script
   type="module"
-  src="https://esm.sh/@terriblemia/monkey-write@1.0.0"
+  src="https://esm.sh/@terriblemia/monkey-write@0.1.1"
 ></script>
 ```
 

@@ -1,6 +1,6 @@
 {
   "name": "@terriblemia/monkey-write",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Web Component for helping infinite monkeys write Hamlet (or whatever).",
   "main": "monkey-write.js",
   "scripts": {

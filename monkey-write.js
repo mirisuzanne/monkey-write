@@ -265,7 +265,8 @@ class MonkeyWrite extends HTMLElement {
           '&lt;': '<',
           '&gt;': '>',
           '&#39;': "'",
-          '&quot;': '"'
+          '&quot;': '"',
+          '&nbsp;': ' ',
         }[tag] || tag)
     );
 }
